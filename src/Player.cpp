@@ -1,7 +1,7 @@
 #include "Player.h"
 
 Player::Player()
-	: m_Texture(), m_Sprite(m_Texture)
+    : m_Texture(), m_Sprite(m_Texture)
 {
     if (!m_Texture.loadFromFile("assets/sprite.png"))
         std::cerr << "Failed to load sprite sheet" << std::endl;
@@ -12,7 +12,7 @@ Player::Player()
 
     m_Sprite.setTextureRect(m_RunFrames[0]);
 
-	m_Sprite.setPosition(sf::Vector2f(100.f, m_GroundY - m_Sprite.getGlobalBounds().size.y));
+    m_Sprite.setPosition(sf::Vector2f(100.f, m_GroundY - m_Sprite.getGlobalBounds().size.y));
 }
 
 void Player::Update(sf::Time deltaTime)
@@ -58,12 +58,12 @@ void Player::m_ApplyGravity(sf::Time deltaTime)
 void Player::m_UpdateAnimation()
 {
     // check if player is in the air
-	if (m_Sprite.getPosition().y < m_GroundY - m_Sprite.getGlobalBounds().size.y)
-	{
-		m_CurrentFrame = 0;
-		m_Sprite.setTextureRect(m_RunFrames[m_CurrentFrame]);
-	}
-	else if (m_AnimationClock.getElapsedTime().asSeconds() >= m_FrameSwitchTime)
+    if (m_Sprite.getPosition().y < m_GroundY - m_Sprite.getGlobalBounds().size.y)
+    {
+        m_CurrentFrame = 0;
+        m_Sprite.setTextureRect(m_RunFrames[m_CurrentFrame]);
+    }
+    else if (m_AnimationClock.getElapsedTime().asSeconds() >= m_FrameSwitchTime)
     {
         m_AnimationClock.restart();
         m_CurrentFrame = (m_CurrentFrame + 1) % m_RunFrameCount;

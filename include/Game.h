@@ -11,7 +11,7 @@
 void Run()
 {
     sf::RenderWindow window(sf::VideoMode({ SCREEN_WIDTH, SCREEN_HEIGHT }), "T-Rex Chrome Dinosaur Game!", sf::Style::Close);
-	window.setFramerateLimit(FRAME_RATE);
+    window.setFramerateLimit(FRAME_RATE);
 
     Player player;
     World world;
@@ -32,7 +32,7 @@ void Run()
         }
 
         player.Update(deltaTime);
-		world.Update(deltaTime);
+        world.Update(deltaTime);
 
         window.clear();
 

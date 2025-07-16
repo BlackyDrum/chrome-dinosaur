@@ -24,11 +24,11 @@ private:
     const float m_JumpStrength = -1500.0f;
     const float m_GroundY = SCREEN_HEIGHT;
 
-	const uint32_t m_SpriteWidth = 87;
-	const uint32_t m_SpriteHeight = 95;
+    const uint32_t m_SpriteWidth = 87;
+    const uint32_t m_SpriteHeight = 95;
 
     // Animation frames
-	size_t m_RunFrameCount = 3;
+    size_t m_RunFrameCount = 3;
     sf::IntRect m_RunFrames[3];
     uint32_t m_CurrentFrame = 0;
     const float m_FrameSwitchTime = 0.08f;
