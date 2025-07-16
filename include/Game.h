@@ -3,6 +3,7 @@
 #include <SFML/Graphics.hpp>
 
 #include "Player.h"
+#include "World.h"
 #include "Globals.h"
 
 
@@ -10,9 +11,10 @@
 void Run()
 {
     sf::RenderWindow window(sf::VideoMode({ SCREEN_WIDTH, SCREEN_HEIGHT }), "T-Rex Chrome Dinosaur Game!", sf::Style::Close);
-	window.setFramerateLimit(60);
+	window.setFramerateLimit(FRAME_RATE);
 
     Player player;
+    World world;
 
     sf::Clock clock;
 
@@ -30,9 +32,11 @@ void Run()
         }
 
         player.Update(deltaTime);
+		world.Update(deltaTime);
 
         window.clear();
 
+        world.Draw(window);
         player.Draw(window);
 
         window.display();

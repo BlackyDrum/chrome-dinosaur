@@ -1,7 +1,5 @@
 #include "Player.h"
 
-#include <iostream>
-
 Player::Player()
 	: m_Texture(), m_Sprite(m_Texture)
 {
