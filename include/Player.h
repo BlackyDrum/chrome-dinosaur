@@ -2,6 +2,8 @@
 
 #include <SFML/Graphics.hpp>
 
+#include "Globals.h"
+
 class Player
 {
 public:
@@ -17,9 +19,9 @@ private:
     sf::Sprite m_Sprite;
 
     float m_VelocityY = 0.0;
-    const float m_Gravity = 1000.0f;
-    const float m_JumpStrength = -400.0f;
-    const float m_GroundY = 200.0f;
+    const float m_Gravity = 5000.0f;
+    const float m_JumpStrength = -1500.0f;
+    const float m_GroundY = SCREEN_HEIGHT;
 
 	const uint32_t m_SpriteWidth = 87;
 	const uint32_t m_SpriteHeight = 95;

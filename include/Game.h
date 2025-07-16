@@ -3,9 +3,9 @@
 #include <SFML/Graphics.hpp>
 
 #include "Player.h"
+#include "Globals.h"
 
-const uint32_t SCREEN_WIDTH = 1000;
-const uint32_t SCREEN_HEIGHT = 300;
+
 
 void Run()
 {
