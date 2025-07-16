@@ -34,7 +34,7 @@ void Run()
         player.Update(deltaTime);
         world.Update(deltaTime);
 
-        window.clear();
+        window.clear(sf::Color::White);
 
         world.Draw(window);
         player.Draw(window);
