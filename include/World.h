@@ -33,11 +33,16 @@ private:
     sf::Sprite m_Ground1;
     sf::Sprite m_Ground2;
     float m_GroundY;
+
     float m_ScrollSpeed = 500.0f;
+    sf::Time m_ScrollSpeedIncreaseInterval = sf::seconds(10.0f);
+    sf::Clock m_ScrollSpeedIncreaseClock;
+    float m_ScrollSpeedIncrement = 25.0f;
 
     std::vector<sf::IntRect> m_CactusRects;
     sf::IntRect m_BirdFrames[2]; // Two frames for bird animation
     const float m_BirdFrameSwitchTime = 0.2f;
+	const float m_BirdSpeedMultiplier = 1.25f;
 
     std::vector<Obstacle> m_Obstacles;
     sf::Clock m_ObstacleSpawnClock;

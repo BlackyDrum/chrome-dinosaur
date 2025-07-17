@@ -47,6 +47,18 @@ void World::Update(sf::Time deltaTime)
     if (m_Ground2.getPosition().x + m_Ground2.getGlobalBounds().size.x < 0)
         m_Ground2.setPosition(sf::Vector2f(m_Ground1.getPosition().x + m_Ground1.getGlobalBounds().size.x, m_GroundY));
 
+    if (m_ScrollSpeedIncreaseClock.getElapsedTime() >= m_ScrollSpeedIncreaseInterval)
+    {
+        m_ScrollSpeed += m_ScrollSpeedIncrement;
+        m_ScrollSpeedIncreaseClock.restart();
+
+        // Update obstacle speeds
+        for (auto& obstacle : m_Obstacles)
+        {
+            obstacle.m_Speed = obstacle.m_IsBird ? m_ScrollSpeed * m_BirdSpeedMultiplier : m_ScrollSpeed;
+        }
+    }
+
     if (m_ObstacleSpawnClock.getElapsedTime() >= m_ObstacleSpawnInterval)
     {
         SpawnObstacle();
@@ -130,7 +142,7 @@ void World::SpawnObstacle()
         float y = (heightDist(m_RandomEngine) == 0) ? lowY : highY;
 
         obstacle.m_Sprite.setPosition(sf::Vector2f(spawnX, y));
-        obstacle.m_Speed = m_ScrollSpeed * 1.25f; // birds should move faster
+        obstacle.m_Speed = m_ScrollSpeed * m_BirdSpeedMultiplier;
     }
 
     m_Obstacles.push_back(std::move(obstacle));
