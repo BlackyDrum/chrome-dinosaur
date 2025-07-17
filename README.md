@@ -89,4 +89,3 @@ This is a C++ clone of the classic Chrome Dinosaur Game, built using [SFML 3](ht
 
 ## ⚠️ Notes
 - This project automatically downloads and builds SFML from source using `FetchContent`. **You do not need to install SFML manually.**
-- On Windows, all required DLLs and the `assets/` and `data/` folder are automatically copied to the output directory after building.
