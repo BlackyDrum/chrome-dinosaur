@@ -13,6 +13,8 @@ Player::Player()
     m_DuckFrames[0] = sf::IntRect(sf::Vector2i(1866, 36), sf::Vector2i(m_DuckSpriteWidth, m_DuckSpriteHeight));
     m_DuckFrames[1] = sf::IntRect(sf::Vector2i(1984, 36), sf::Vector2i(m_DuckSpriteWidth, m_DuckSpriteHeight));
 
+    m_DeadFrame = sf::IntRect(sf::Vector2i(1782, 6), sf::Vector2i(79, 85));
+
     m_Sprite.setTextureRect(m_RunFrames[0]);
 
     m_Sprite.setPosition(sf::Vector2f(100.f, m_GroundY - m_Sprite.getGlobalBounds().size.y));
@@ -72,6 +74,12 @@ void Player::Unduck()
     float newHeight = m_Sprite.getGlobalBounds().size.y;
     float y = m_GroundY - newHeight;
     m_Sprite.setPosition(sf::Vector2f(m_Sprite.getPosition().x, y));
+}
+
+void Player::Death()
+{
+    m_IsDead = true;
+    m_Sprite.setTextureRect(m_DeadFrame);
 }
 
 void Player::Draw(sf::RenderWindow& window)

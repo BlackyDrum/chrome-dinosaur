@@ -94,11 +94,6 @@ void World::Draw(sf::RenderWindow& window)
     }
 }
 
-sf::FloatRect World::GetBounds() const
-{
-    return m_Ground1.getGlobalBounds();
-}
-
 void World::SpawnObstacle()
 {
     std::uniform_int_distribution<uint32_t> dist(0, 9); // 0-7 = cactus, 8-9 = bird

@@ -14,6 +14,7 @@ public:
     void Jump();
     void Duck();
     void Unduck();
+    void Death();
     void Draw(sf::RenderWindow& window);
 
     sf::FloatRect GetBounds() const;
@@ -29,6 +30,9 @@ private:
     bool m_IsDucking = false;
     size_t m_DuckFrameCount = 2;
     sf::IntRect m_DuckFrames[2];
+
+    bool m_IsDead = false;
+    sf::IntRect m_DeadFrame;
 
     const uint32_t m_SpriteWidth = 87;
     const uint32_t m_SpriteHeight = 95;
