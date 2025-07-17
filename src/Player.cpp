@@ -83,12 +83,12 @@ void Player::Death()
 
     if (m_IsDucking)
     {
-		// elevate player back up
-		m_IsDucking = false;
+        // elevate player back up
+        m_IsDucking = false;
 
-		float newHeight = m_Sprite.getGlobalBounds().size.y;
-		float y = m_GroundY - newHeight;
-		m_Sprite.setPosition(sf::Vector2f(m_Sprite.getPosition().x, y));
+        float newHeight = m_Sprite.getGlobalBounds().size.y;
+        float y = m_GroundY - newHeight;
+        m_Sprite.setPosition(sf::Vector2f(m_Sprite.getPosition().x, y));
     }
 }
 
@@ -125,4 +125,15 @@ void Player::UpdateAnimation()
         else
             m_Sprite.setTextureRect(m_RunFrames[m_CurrentFrame]);
     }
+}
+
+void Player::Reset()
+{
+    m_IsDead = false;
+    m_IsDucking = false;
+    m_VelocityY = 0.0f;
+
+    m_Sprite.setPosition(sf::Vector2f(100.f, m_GroundY - m_Sprite.getGlobalBounds().size.y));
+    m_Sprite.setTextureRect(m_RunFrames[0]);
+    m_AnimationClock.restart();
 }

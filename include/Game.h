@@ -33,6 +33,23 @@ void Run()
         {
             if (event->is<sf::Event::Closed>())
                 window.close();
+
+            if (isGameOver && event->is<sf::Event::MouseButtonPressed>())
+            {
+                const auto* mouseEvent = event->getIf<sf::Event::MouseButtonPressed>();
+                if (mouseEvent->button == sf::Mouse::Button::Left)
+                {
+                    sf::Vector2f clickPos(static_cast<float>(mouseEvent->position.x), static_cast<float>(mouseEvent->position.y));
+                    if (ui.GetRestartButtonBounds().contains(clickPos))
+                    {
+                        player.Reset();
+                        world.Reset();
+                        ui.Reset();
+
+                        isGameOver = false;
+                    }
+                }
+            }
         }
 
         auto isJumpKeyPressed = [] {
@@ -75,6 +92,8 @@ void Run()
                 }
             }
         }
+
+
 
         window.clear(sf::Color::White);
 

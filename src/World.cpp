@@ -131,3 +131,12 @@ void World::SpawnObstacle()
 
     m_Obstacles.push_back(std::move(obstacle));
 }
+
+void World::Reset()
+{
+    m_Ground1.setPosition(sf::Vector2f(0, m_GroundY));
+    m_Ground2.setPosition(sf::Vector2f(m_Ground1.getPosition().x + m_Ground1.getGlobalBounds().size.x, m_GroundY));
+
+    m_Obstacles.clear();
+    m_ObstacleSpawnClock.restart();
+}

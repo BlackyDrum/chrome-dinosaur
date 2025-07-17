@@ -16,6 +16,7 @@ public:
     void Unduck();
     void Death();
     void Draw(sf::RenderWindow& window);
+    void Reset();
 
     sf::FloatRect GetBounds() const;
 private:

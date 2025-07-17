@@ -16,6 +16,8 @@ public:
 
     void Reset();
     void SetGameOver(bool isGameOver);
+
+    sf::FloatRect GetRestartButtonBounds() const { return m_RestartButton.getGlobalBounds(); }
 private:
     sf::Font m_Font;
     sf::Text m_ScoreText;
@@ -25,6 +27,9 @@ private:
     float m_AccumulatedScore = 0.f;
     float m_ScoreUpdateInterval = 0.1f;
 
+    sf::Sprite m_RestartButton;
+    sf::Texture m_Texture;
+    sf::IntRect m_RestartButtonRect;
     bool m_IsGameOver = false;
 private:
     void UpdateScoreText();

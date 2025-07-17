@@ -25,6 +25,7 @@ public:
 
     void Update(sf::Time deltaTime);
     void Draw(sf::RenderWindow& window);
+    void Reset();
 
     const std::vector<Obstacle>& GetObstacles() const { return m_Obstacles; }
 private:
