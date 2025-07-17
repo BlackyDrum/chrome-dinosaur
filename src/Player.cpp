@@ -17,8 +17,8 @@ Player::Player()
 
 void Player::Update(sf::Time deltaTime)
 {
-    m_ApplyGravity(deltaTime);
-    m_UpdateAnimation();
+    ApplyGravity(deltaTime);
+    UpdateAnimation();
 
     m_Sprite.move(sf::Vector2f(0, m_VelocityY * deltaTime.asSeconds()));
 
@@ -50,12 +50,12 @@ sf::FloatRect Player::GetBounds() const
     return m_Sprite.getGlobalBounds();
 }
 
-void Player::m_ApplyGravity(sf::Time deltaTime)
+void Player::ApplyGravity(sf::Time deltaTime)
 {
     m_VelocityY += m_Gravity * deltaTime.asSeconds();
 }
 
-void Player::m_UpdateAnimation()
+void Player::UpdateAnimation()
 {
     // check if player is in the air
     if (m_Sprite.getPosition().y < m_GroundY - m_Sprite.getGlobalBounds().size.y)

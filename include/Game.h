@@ -6,8 +6,6 @@
 #include "World.h"
 #include "Globals.h"
 
-
-
 void Run()
 {
     sf::RenderWindow window(sf::VideoMode({ SCREEN_WIDTH, SCREEN_HEIGHT }), "T-Rex Chrome Dinosaur Game!", sf::Style::Close);

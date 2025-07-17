@@ -26,6 +26,9 @@ World::World()
     m_CactusRects.push_back(sf::IntRect(sf::Vector2i(548, 2), sf::Vector2i(101, 69)));
     m_CactusRects.push_back(sf::IntRect(sf::Vector2i(652, 2), sf::Vector2i(49, 99)));
 
+    m_BirdFrames[0] = (sf::IntRect(sf::Vector2i(260, 14), sf::Vector2i(91, 67))); // Flap down
+    m_BirdFrames[1] = (sf::IntRect(sf::Vector2i(352, 2), sf::Vector2i(91, 59))); // Flap up
+
     m_ObstacleSpawnClock.restart();
 }
 
@@ -49,7 +52,7 @@ void World::Update(sf::Time deltaTime)
         SpawnObstacle();
 
         // Set random spawn interval
-        std::uniform_real_distribution<float> dist(1.5f, 4.f);
+        std::uniform_real_distribution<float> dist(0.5f, 3.f);
         m_ObstacleSpawnInterval = sf::seconds(dist(m_RandomEngine));
 
         m_ObstacleSpawnClock.restart();
@@ -57,12 +60,26 @@ void World::Update(sf::Time deltaTime)
 
     for (auto& obstacle : m_Obstacles)
     {
-        obstacle.sprite.move(sf::Vector2f(-move, 0));
+        float obstacleSpeed = obstacle.m_Speed * deltaTime.asSeconds();
+        obstacle.m_Sprite.move(sf::Vector2f(-obstacleSpeed, 0));
+
+        if (obstacle.m_IsBird)
+        {
+            // Update bird animation
+            obstacle.m_AnimationTime += deltaTime;
+
+            if (obstacle.m_AnimationTime.asSeconds() >= m_BirdFrameSwitchTime)
+            {
+                obstacle.m_CurrentFrame = (obstacle.m_CurrentFrame + 1) % 2; // Toggle between 0 and 1
+                obstacle.m_Sprite.setTextureRect(m_BirdFrames[obstacle.m_CurrentFrame]);
+                obstacle.m_AnimationTime = sf::Time::Zero;
+            }
+        }
     }
 
     m_Obstacles.erase(std::remove_if(m_Obstacles.begin(), m_Obstacles.end(),
         [](const Obstacle& o) {
-            return o.sprite.getPosition().x + o.sprite.getGlobalBounds().size.x < 0;
+            return o.m_Sprite.getPosition().x + o.m_Sprite.getGlobalBounds().size.x < 0;
         }), m_Obstacles.end());
 }
 
@@ -73,7 +90,7 @@ void World::Draw(sf::RenderWindow& window)
 
     for (const auto& obstacle : m_Obstacles)
     {
-        window.draw(obstacle.sprite);
+        window.draw(obstacle.m_Sprite);
     }
 }
 
@@ -84,20 +101,37 @@ sf::FloatRect World::GetBounds() const
 
 void World::SpawnObstacle()
 {
-    std::uniform_int_distribution<uint32_t> dist(0, 1); // 0 = cactus, 1 = bird
-    uint32_t type = 0; //dist(m_RandomEngine);
+    std::uniform_int_distribution<uint32_t> dist(0, 9); // 0-7 = cactus, 8-9 = bird
+    uint32_t roll = dist(m_RandomEngine);
+    uint32_t type = (roll < 8) ? 0 : 1; // 80% chance for cactus, 20% for bird
 
     Obstacle obstacle(m_Texture);
 
-    if (type == 0) // Cactus
+    if (type == 0)
     {
         size_t index = std::rand() % m_CactusRects.size();
-        obstacle.sprite.setTextureRect(m_CactusRects[index]);
+        obstacle.m_Sprite.setTextureRect(m_CactusRects[index]);
         
         float spawnX = SCREEN_WIDTH + m_CactusRects[index].size.x; // Spawn off-screen
         float offsetY = 20.0f;
         float y = static_cast<float>(m_GroundY - m_CactusRects[index].size.y + offsetY);
-        obstacle.sprite.setPosition(sf::Vector2f(spawnX, y));
+        obstacle.m_Sprite.setPosition(sf::Vector2f(spawnX, y));
+        obstacle.m_Speed = m_ScrollSpeed;
+    }
+    else if (type == 1)
+    {
+        size_t frame = 0;
+        obstacle.m_IsBird = true;
+        obstacle.m_CurrentFrame = frame;
+        obstacle.m_AnimationTime = sf::Time::Zero;
+
+        obstacle.m_Sprite.setTextureRect(m_BirdFrames[frame]);
+
+        float spawnX = SCREEN_WIDTH + m_BirdFrames[0].size.x;
+        float offsetY = 20.0f;
+        float y = static_cast<float>(m_GroundY - m_BirdFrames[0].size.y - offsetY);
+        obstacle.m_Sprite.setPosition(sf::Vector2f(spawnX, y));
+        obstacle.m_Speed = m_ScrollSpeed * 1.25f; // birds should move faster
     }
 
     m_Obstacles.push_back(std::move(obstacle));

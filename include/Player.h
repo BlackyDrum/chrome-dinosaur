@@ -27,14 +27,12 @@ private:
     const uint32_t m_SpriteWidth = 87;
     const uint32_t m_SpriteHeight = 95;
 
-    // Animation frames
     size_t m_RunFrameCount = 3;
     sf::IntRect m_RunFrames[3];
     uint32_t m_CurrentFrame = 0;
     const float m_FrameSwitchTime = 0.08f;
     sf::Clock m_AnimationClock;
-
 private:
-    void m_UpdateAnimation();
-    void m_ApplyGravity(sf::Time deltaTime);
+    void UpdateAnimation();
+    void ApplyGravity(sf::Time deltaTime);
 };
