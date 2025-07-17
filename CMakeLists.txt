@@ -4,15 +4,20 @@ project(Chrome-Dinosaur VERSION 1.0 LANGUAGES CXX)
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-find_package(SFML 3 COMPONENTS Graphics Window System Audio REQUIRED)
+include(FetchContent)
+FetchContent_Declare(SFML
+    GIT_REPOSITORY https://github.com/SFML/SFML.git
+    GIT_TAG 3.0.0
+    GIT_SHALLOW ON
+)
+FetchContent_MakeAvailable(SFML)
 
 file(GLOB_RECURSE SOURCES src/*.cpp)
 
 add_executable(${PROJECT_NAME} ${SOURCES})
-
 target_include_directories(${PROJECT_NAME} PRIVATE include)
 
-target_link_libraries(${PROJECT_NAME} PRIVATE SFML::Graphics SFML::Window SFML::System SFML::Audio)
+target_link_libraries(${PROJECT_NAME} PRIVATE sfml-graphics sfml-window sfml-system sfml-audio)
 
 if(MSVC)
     set_target_properties(${PROJECT_NAME} PROPERTIES
