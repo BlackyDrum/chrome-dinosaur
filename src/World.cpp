@@ -123,8 +123,12 @@ void World::SpawnObstacle()
         obstacle.m_Sprite.setTextureRect(m_BirdFrames[frame]);
 
         float spawnX = SCREEN_WIDTH + m_BirdFrames[0].size.x;
-        float offsetY = 20.0f;
-        float y = static_cast<float>(m_GroundY - m_BirdFrames[0].size.y - offsetY);
+        float lowY = static_cast<float>(m_GroundY - m_BirdFrames[0].size.y); // player must jump
+        float highY = static_cast<float>(m_GroundY - m_BirdFrames[0].size.y - 40.0f); // player must duck
+
+        std::uniform_int_distribution<uint32_t> heightDist(0, 1);
+        float y = (heightDist(m_RandomEngine) == 0) ? lowY : highY;
+
         obstacle.m_Sprite.setPosition(sf::Vector2f(spawnX, y));
         obstacle.m_Speed = m_ScrollSpeed * 1.25f; // birds should move faster
     }
