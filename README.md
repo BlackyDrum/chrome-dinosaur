@@ -75,6 +75,10 @@ This is a C++ clone of the classic Chrome Dinosaur Game, built using [SFML 3](ht
    ./build/Chrome-Dinosaur
    ```
 
+## 🎮 Controls
+- **Jump**: `↑ Up`, `W`, or `Space`
+- **Duck**: `↓ Down` or `S`
+
 ## ⚠️ Notes
 - This game requires SFML 3.x. It will not compile or run with SFML 2.x.
 - On Windows, SFML DLLs and assets are automatically copied next to the executable after build.
