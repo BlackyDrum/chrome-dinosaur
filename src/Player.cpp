@@ -4,7 +4,7 @@ Player::Player()
     : m_Texture(), m_Sprite(m_Texture)
 {
     if (!m_Texture.loadFromFile("assets/sprite.png"))
-        std::cerr << "Failed to load sprite sheet" << std::endl;
+        std::cerr << "Failed to load sprite sheet\n";
 
     m_RunFrames[0] = sf::IntRect(sf::Vector2i(1338, 0), sf::Vector2i(m_SpriteWidth, m_SpriteHeight));
     m_RunFrames[1] = sf::IntRect(sf::Vector2i(1514, 0), sf::Vector2i(m_SpriteWidth, m_SpriteHeight));
@@ -16,8 +16,7 @@ Player::Player()
     m_DeadFrame = sf::IntRect(sf::Vector2i(1782, 6), sf::Vector2i(79, 85));
 
     m_Sprite.setTextureRect(m_RunFrames[0]);
-
-    m_Sprite.setPosition(sf::Vector2f(100.f, m_GroundY - m_Sprite.getGlobalBounds().size.y));
+    m_Sprite.setPosition(sf::Vector2f(m_XPosition, m_GroundY - m_Sprite.getGlobalBounds().size.y));
 }
 
 void Player::Update(sf::Time deltaTime)
@@ -87,7 +86,6 @@ void Player::Death()
 
     if (m_IsDucking)
     {
-        // elevate player back up
         m_IsDucking = false;
 
         float newHeight = m_Sprite.getGlobalBounds().size.y;
@@ -99,11 +97,6 @@ void Player::Death()
 void Player::Draw(sf::RenderWindow& window)
 {
     window.draw(m_Sprite);
-}
-
-sf::FloatRect Player::GetBounds() const
-{
-    return m_Sprite.getGlobalBounds();
 }
 
 void Player::ApplyGravity(sf::Time deltaTime)
@@ -141,7 +134,7 @@ void Player::Reset()
     m_IsDucking = false;
     m_VelocityY = 0.0f;
 
-    m_Sprite.setPosition(sf::Vector2f(100.f, m_GroundY - m_Sprite.getGlobalBounds().size.y));
+    m_Sprite.setPosition(sf::Vector2f(m_XPosition, m_GroundY - m_Sprite.getGlobalBounds().size.y));
     m_Sprite.setTextureRect(m_RunFrames[0]);
     m_AnimationClock.restart();
 }

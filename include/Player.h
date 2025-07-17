@@ -18,7 +18,7 @@ public:
     void Draw(sf::RenderWindow& window);
     void Reset();
 
-    sf::FloatRect GetBounds() const;
+    sf::FloatRect GetBounds() const { return m_Sprite.getGlobalBounds(); }
 private:
     sf::Texture m_Texture;
     sf::Sprite m_Sprite;
@@ -27,6 +27,7 @@ private:
     const float m_Gravity = 5000.0f;
     const float m_JumpStrength = -1500.0f;
     const float m_GroundY = SCREEN_HEIGHT;
+	const float m_XPosition = 100.0f;
 
     bool m_IsDucking = false;
     size_t m_DuckFrameCount = 2;

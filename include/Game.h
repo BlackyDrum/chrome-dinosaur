@@ -15,7 +15,7 @@ inline sf::FloatRect InflateRect(const sf::FloatRect& rect, float dx, float dy)
 
 void Run()
 {
-    sf::RenderWindow window(sf::VideoMode({ SCREEN_WIDTH, SCREEN_HEIGHT }), "T-Rex Chrome Dinosaur Game!");
+    sf::RenderWindow window(sf::VideoMode({ SCREEN_WIDTH, SCREEN_HEIGHT }), "Chrome Dinosaur Game");
     window.setFramerateLimit(FRAME_RATE);
 
     Player player;
@@ -86,6 +86,7 @@ void Run()
             world.Update(deltaTime);
             ui.Update(deltaTime);
 
+            // Detect collision with obstacles
             float shrinkAmount = 10.0f;
             sf::FloatRect playerBounds = InflateRect(player.GetBounds(), shrinkAmount, shrinkAmount);
 
@@ -99,6 +100,7 @@ void Run()
                     ui.SetGameOver(true);
                     soundManager.PlayDieSound();
                     isGameOver = true;
+
                     break;
                 }
             }

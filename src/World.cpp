@@ -4,7 +4,7 @@ World::World()
     : m_Texture(), m_Ground1(m_Texture), m_Ground2(m_Texture)
 {
     if (!m_Texture.loadFromFile("assets/sprite.png"))
-        std::cerr << "Failed to load world texture!" << std::endl;
+        std::cerr << "Failed to load sprite sheet!\n" << std::endl;
 
     std::srand(static_cast<uint32_t>(std::time(nullptr)));
 
@@ -55,7 +55,7 @@ void World::Update(sf::Time deltaTime)
         m_ScrollSpeed += m_ScrollSpeedIncrement;
         m_ScrollSpeedIncreaseClock.restart();
 
-        // Update obstacle speeds
+        // Also update the speed of existing obstacles because they are always relative to the scroll speed
         for (auto& obstacle : m_Obstacles)
         {
             obstacle.m_Speed = obstacle.m_IsBird ? m_ScrollSpeed * m_BirdSpeedMultiplier : m_ScrollSpeed;
@@ -85,18 +85,20 @@ void World::Update(sf::Time deltaTime)
 
             if (obstacle.m_AnimationTime.asSeconds() >= m_BirdFrameSwitchTime)
             {
-                obstacle.m_CurrentFrame = (obstacle.m_CurrentFrame + 1) % 2; // Toggle between 0 and 1
+                obstacle.m_CurrentFrame = (obstacle.m_CurrentFrame + 1) % 2;
                 obstacle.m_Sprite.setTextureRect(m_BirdFrames[obstacle.m_CurrentFrame]);
                 obstacle.m_AnimationTime = sf::Time::Zero;
             }
         }
     }
 
+    // Remove obstacles that have moved off-screen
     m_Obstacles.erase(std::remove_if(m_Obstacles.begin(), m_Obstacles.end(),
         [](const Obstacle& o) {
             return o.m_Sprite.getPosition().x + o.m_Sprite.getGlobalBounds().size.x < 0;
         }), m_Obstacles.end());
 
+    // Spanw clouds
     if (m_CloudSpawnClock.getElapsedTime() >= m_CloudSpawnInterval)
     {
         Cloud cloud(m_Texture);
@@ -122,6 +124,7 @@ void World::Update(sf::Time deltaTime)
         cloud.m_Sprite.move(sf::Vector2f(-cloudSpeed, 0));
     }
 
+    // Remove clouds that have moved off-screen
     m_Clouds.erase(std::remove_if(m_Clouds.begin(), m_Clouds.end(),
         [](const Cloud& c) {
             return c.m_Sprite.getPosition().x + c.m_Sprite.getGlobalBounds().size.x < 0;

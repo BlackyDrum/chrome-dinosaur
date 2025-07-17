@@ -7,7 +7,7 @@ UI::UI()
         std::cerr << "Failed to load font!\n";
 
     if (!m_Texture.loadFromFile("assets/sprite.png"))
-        std::cerr << "Failed to load UI texture!\n";
+        std::cerr << "Failed to load sprite sheet!\n";
 
     sf::Color gray(100, 100, 100);
 

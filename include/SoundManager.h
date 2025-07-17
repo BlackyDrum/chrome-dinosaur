@@ -11,7 +11,6 @@ public:
     void PlayJumpSound();
     void PlayDieSound();
     void PlayScoreSound();
-
 private:
     sf::SoundBuffer m_JumpBuffer;
     sf::SoundBuffer m_DieBuffer;
