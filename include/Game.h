@@ -6,6 +6,11 @@
 #include "World.h"
 #include "Globals.h"
 
+inline sf::FloatRect InflateRect(const sf::FloatRect& rect, float dx, float dy)
+{
+    return sf::FloatRect(sf::Vector2f(rect.position.x + dx, rect.position.y + dy), sf::Vector2f(rect.size.x - 2 * dx, rect.size.y - 2 * dy));
+}
+
 void Run()
 {
     sf::RenderWindow window(sf::VideoMode({ SCREEN_WIDTH, SCREEN_HEIGHT }), "T-Rex Chrome Dinosaur Game!", sf::Style::Close);
@@ -51,9 +56,14 @@ void Run()
             player.Update(deltaTime);
             world.Update(deltaTime);
 
+            float shrinkAmount = 10.0f;
+            sf::FloatRect playerBounds = InflateRect(player.GetBounds(), shrinkAmount, shrinkAmount);
+
             for (const auto& obstacle : world.GetObstacles())
             {
-                if (player.GetBounds().findIntersection(obstacle.m_Sprite.getGlobalBounds()))
+                sf::FloatRect obstacleBounds = InflateRect(obstacle.m_Sprite.getGlobalBounds(), shrinkAmount, shrinkAmount);
+
+                if (playerBounds.findIntersection(obstacleBounds))
                 {
                     player.Death();
                     isGameOver = true;
