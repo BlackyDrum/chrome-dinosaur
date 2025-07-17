@@ -10,7 +10,6 @@ This is a C++ clone of the classic Chrome Dinosaur Game, built using [SFML 3](ht
 
 - C++20 compatible compiler (GCC, Clang, MSVC)
 - [CMake ≥ 3.20](https://cmake.org/download/)
-- [SFML 3.x](https://www.sfml-dev.org/) (Graphics, Window, System, Audio modules)
 
 ---
 
@@ -18,41 +17,44 @@ This is a C++ clone of the classic Chrome Dinosaur Game, built using [SFML 3](ht
 
 ### Windows (Visual Studio)
 
-1. **Install SFML 3:**
-
-   - Download the **SFML 3.x Visual C++** development files from the [SFML website](https://www.sfml-dev.org/download.php).
-   - Extract it somewhere (e.g., `C:/Program Files/SFML-3.0.0`).
-
-2. **Clone this repository:**
+1. **Clone this repository:**
 
    ```bash
    git clone https://github.com/blackydrum/chrome-dinosaur.git
    cd chrome-dinosaur
    ```
    
-3. **Configure with CMake:**
-   Replace the path to SFML with yours:
+2. **Configure with CMake:**
 
    ```bash
-   cmake -B build -S . -DCMAKE_PREFIX_PATH="C:/Program Files/SFML-3.0.0"
+   cmake -B build -S .
    ```
 
-4. **Build with Visual Studio**
+3. **Build the project**
 
    ```bash
    cmake --build build --config Release
    ```
 
-5. Inside `build/Release`, you'll find `Chrome-Dinosaur.exe`. All required DLLs and the `assets/` folder should be copied automatically.
+4. Inside `build/Release`, you'll find `Chrome-Dinosaur.exe`.
 
 ### Linux
 
-1. **Install SFML 3:**
-
-   If your distro has SFML 3 packages, install them. Otherwise, build from source:
+1. **Install dependencies:**
 
    ```bash
-   sudo apt-get install libsfml-dev
+   sudo apt update && sudo apt install \
+     libxrandr-dev \
+     libxcursor-dev \
+     libxi-dev \
+     libudev-dev \
+     libflac-dev \
+     libvorbis-dev \
+     libgl1-mesa-dev \
+     libegl1-mesa-dev \
+     libdrm-dev \
+     libgbm-dev \
+     libfreetype6-dev
    ```
 
 2. **Clone this repository:**
@@ -80,5 +82,5 @@ This is a C++ clone of the classic Chrome Dinosaur Game, built using [SFML 3](ht
 - **Duck**: `↓ Down` or `S`
 
 ## ⚠️ Notes
-- This game requires SFML 3.x. It will not compile or run with SFML 2.x.
-- On Windows, SFML DLLs and assets are automatically copied next to the executable after build.
+- This project automatically downloads and builds SFML from source using `FetchContent`. **You do not need to install SFML manually.**
+- On Windows, all required DLLs and the `assets/` and `data/` folder are automatically copied to the output directory after building.
