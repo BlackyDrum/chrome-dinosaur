@@ -4,6 +4,7 @@
 
 #include "Player.h"
 #include "World.h"
+#include "UI.h"
 #include "Globals.h"
 
 inline sf::FloatRect InflateRect(const sf::FloatRect& rect, float dx, float dy)
@@ -18,6 +19,7 @@ void Run()
 
     Player player;
     World world;
+    UI ui;
 
     bool isGameOver = false;
 
@@ -55,6 +57,7 @@ void Run()
 
             player.Update(deltaTime);
             world.Update(deltaTime);
+            ui.Update(deltaTime);
 
             float shrinkAmount = 10.0f;
             sf::FloatRect playerBounds = InflateRect(player.GetBounds(), shrinkAmount, shrinkAmount);
@@ -66,6 +69,7 @@ void Run()
                 if (playerBounds.findIntersection(obstacleBounds))
                 {
                     player.Death();
+                    ui.SetGameOver(true);
                     isGameOver = true;
                     break;
                 }
@@ -76,6 +80,7 @@ void Run()
 
         world.Draw(window);
         player.Draw(window);
+        ui.Draw(window);
 
         window.display();
     }
