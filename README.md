@@ -36,7 +36,13 @@ This is a C++ clone of the classic Chrome Dinosaur Game, built using [SFML 3](ht
    cmake --build build --config Release
    ```
 
-4. Inside `build/Release`, you'll find `Chrome-Dinosaur.exe`.
+   Inside `build/Release`, you'll find `Chrome-Dinosaur.exe`.
+
+4. **Alternatively: open the solution in Visual Studio**
+   - Open the generated `build/Chrome-Dinosaur.sln` file.
+   - Set the build configuration to `Release`.
+   - Make sure **multi-processor compilation** is enabled
+   - Build the solution with `Ctrl+Shift+B`
 
 ### Linux
 
