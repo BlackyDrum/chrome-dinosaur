@@ -80,6 +80,16 @@ void Player::Death()
 {
     m_IsDead = true;
     m_Sprite.setTextureRect(m_DeadFrame);
+
+    if (m_IsDucking)
+    {
+		// elevate player back up
+		m_IsDucking = false;
+
+		float newHeight = m_Sprite.getGlobalBounds().size.y;
+		float y = m_GroundY - newHeight;
+		m_Sprite.setPosition(sf::Vector2f(m_Sprite.getPosition().x, y));
+    }
 }
 
 void Player::Draw(sf::RenderWindow& window)
