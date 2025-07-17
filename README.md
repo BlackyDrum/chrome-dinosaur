@@ -67,7 +67,7 @@ This is a C++ clone of the classic Chrome Dinosaur Game, built using [SFML 3](ht
 
    ```bash
    cmake -B build -S .
-    cmake --build build --config Release
+   cmake --build build --config Release
    ```
 
 4. **Run the game:**
