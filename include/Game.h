@@ -25,8 +25,23 @@ void Run()
             if (event->is<sf::Event::Closed>())
                 window.close();
 
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space) || sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Up))
+            auto isJumpKeyPressed = [] {
+                return sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space) ||
+                       sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Up) ||
+                       sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W);
+            };
+
+            auto isDuckKeyPressed = [] {
+                return sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Down) ||
+                       sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S);
+            };
+
+            if (isJumpKeyPressed())
                 player.Jump();
+            else if (isDuckKeyPressed())
+                player.Duck();
+            else
+                player.Unduck();
         }
 
         player.Update(deltaTime);
