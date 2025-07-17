@@ -49,4 +49,5 @@ private:
 private:
     void UpdateAnimation();
     void ApplyGravity(sf::Time deltaTime);
+    bool IsInAir() const;
 };

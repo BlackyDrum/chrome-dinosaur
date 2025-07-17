@@ -51,7 +51,7 @@ bool Player::Jump()
 
 void Player::Duck()
 {
-    if (m_IsDucking)
+    if (m_IsDucking || IsInAir())
         return;
 
     m_IsDucking = true;
@@ -111,10 +111,14 @@ void Player::ApplyGravity(sf::Time deltaTime)
     m_VelocityY += m_Gravity * deltaTime.asSeconds();
 }
 
+bool Player::IsInAir() const
+{
+    return m_Sprite.getPosition().y < m_GroundY - m_Sprite.getGlobalBounds().size.y;
+}
+
 void Player::UpdateAnimation()
 {
-    // check if player is in the air
-    if (m_Sprite.getPosition().y < m_GroundY - m_Sprite.getGlobalBounds().size.y)
+    if (IsInAir())
     {
         m_CurrentFrame = 0;
         m_Sprite.setTextureRect(m_RunFrames[m_CurrentFrame]);
