@@ -22,16 +22,9 @@ World::World()
 
     // Initialize obstacles
     m_CactusRects.push_back(sf::IntRect(sf::Vector2i(446, 2), sf::Vector2i(33, 69)));
-    m_CactusRects.push_back(sf::IntRect(sf::Vector2i(480, 2), sf::Vector2i(33, 69)));
-    m_CactusRects.push_back(sf::IntRect(sf::Vector2i(514, 2), sf::Vector2i(33, 69)));
-    m_CactusRects.push_back(sf::IntRect(sf::Vector2i(548, 2), sf::Vector2i(33, 69)));
-    m_CactusRects.push_back(sf::IntRect(sf::Vector2i(582, 2), sf::Vector2i(33, 69)));
-    m_CactusRects.push_back(sf::IntRect(sf::Vector2i(619, 2), sf::Vector2i(33, 69)));
+    m_CactusRects.push_back(sf::IntRect(sf::Vector2i(480, 2), sf::Vector2i(67, 69)));
+    m_CactusRects.push_back(sf::IntRect(sf::Vector2i(548, 2), sf::Vector2i(101, 69)));
     m_CactusRects.push_back(sf::IntRect(sf::Vector2i(652, 2), sf::Vector2i(49, 99)));
-    m_CactusRects.push_back(sf::IntRect(sf::Vector2i(702, 2), sf::Vector2i(49, 99)));
-    m_CactusRects.push_back(sf::IntRect(sf::Vector2i(752, 2), sf::Vector2i(49, 99)));
-    m_CactusRects.push_back(sf::IntRect(sf::Vector2i(802, 2), sf::Vector2i(49, 99)));
-    m_CactusRects.push_back(sf::IntRect(sf::Vector2i(850, 2), sf::Vector2i(47, 99)));
 
     m_ObstacleSpawnClock.restart();
 }
