@@ -4,8 +4,7 @@ This is a C++ clone of the classic Chrome Dinosaur Game, built using [SFML 3](ht
 
 ---
 
-<img width="1189" height="504" alt="screenshot" src="https://github.com/user-attachments/assets/b0133d70-24aa-424c-9d1b-e8047683e8bf" />
-
+![gif](https://github.com/user-attachments/assets/267ddebc-1540-4968-9c57-445b8f08df4a)
 
 ## 🛠️ Requirements
 
