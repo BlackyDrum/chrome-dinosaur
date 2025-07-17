@@ -20,6 +20,14 @@ public:
         sf::Time m_AnimationTime;
         size_t m_CurrentFrame;
     };
+
+    struct Cloud
+    {
+        Cloud(sf::Texture& texture) : m_Sprite(texture) {}
+
+        sf::Sprite m_Sprite;
+        float m_Speed = 0.f;
+    };
 public:
     World();
 
@@ -42,7 +50,13 @@ private:
     std::vector<sf::IntRect> m_CactusRects;
     sf::IntRect m_BirdFrames[2]; // Two frames for bird animation
     const float m_BirdFrameSwitchTime = 0.2f;
-	const float m_BirdSpeedMultiplier = 1.25f;
+    const float m_BirdSpeedMultiplier = 1.25f;
+
+    std::vector<Cloud> m_Clouds;
+    sf::IntRect m_CloudRect;
+    sf::Clock m_CloudSpawnClock;
+    sf::Time m_CloudSpawnInterval = sf::seconds(3.f);
+    const float m_CloudSpeedMultiplier = 0.15f;
 
     std::vector<Obstacle> m_Obstacles;
     sf::Clock m_ObstacleSpawnClock;

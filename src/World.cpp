@@ -30,6 +30,9 @@ World::World()
     m_BirdFrames[1] = (sf::IntRect(sf::Vector2i(352, 2), sf::Vector2i(91, 59))); // Flap up
 
     m_ObstacleSpawnClock.restart();
+
+    m_CloudRect = sf::IntRect(sf::Vector2i(166, 2), sf::Vector2i(91, 26));
+    m_CloudSpawnClock.restart();
 }
 
 void World::Update(sf::Time deltaTime)
@@ -93,10 +96,45 @@ void World::Update(sf::Time deltaTime)
         [](const Obstacle& o) {
             return o.m_Sprite.getPosition().x + o.m_Sprite.getGlobalBounds().size.x < 0;
         }), m_Obstacles.end());
+
+    if (m_CloudSpawnClock.getElapsedTime() >= m_CloudSpawnInterval)
+    {
+        Cloud cloud(m_Texture);
+        cloud.m_Sprite.setTextureRect(m_CloudRect);
+
+        float spawnX = SCREEN_WIDTH + m_CloudRect.size.x;
+        std::uniform_real_distribution<float> heightDist(20.f, SCREEN_HEIGHT / 2.f);
+        float y = heightDist(m_RandomEngine);
+
+        cloud.m_Sprite.setPosition(sf::Vector2f(spawnX, y));
+        cloud.m_Speed = m_ScrollSpeed * m_CloudSpeedMultiplier;
+
+        m_Clouds.push_back(std::move(cloud));
+
+        std::uniform_real_distribution<float> dist(2.f, 5.f);
+        m_CloudSpawnInterval = sf::seconds(dist(m_RandomEngine));
+        m_CloudSpawnClock.restart();
+    }
+
+    for (auto& cloud : m_Clouds)
+    {
+        float cloudSpeed = cloud.m_Speed * deltaTime.asSeconds();
+        cloud.m_Sprite.move(sf::Vector2f(-cloudSpeed, 0));
+    }
+
+    m_Clouds.erase(std::remove_if(m_Clouds.begin(), m_Clouds.end(),
+        [](const Cloud& c) {
+            return c.m_Sprite.getPosition().x + c.m_Sprite.getGlobalBounds().size.x < 0;
+        }), m_Clouds.end());
 }
 
 void World::Draw(sf::RenderWindow& window)
 {
+    for (const auto& cloud : m_Clouds)
+    {
+        window.draw(cloud.m_Sprite);
+    }
+
     window.draw(m_Ground1);
     window.draw(m_Ground2);
 
@@ -155,4 +193,10 @@ void World::Reset()
 
     m_Obstacles.clear();
     m_ObstacleSpawnClock.restart();
+
+    m_Clouds.clear();
+    m_CloudSpawnClock.restart();
+
+    m_ScrollSpeed = 500.0f;
+    m_ScrollSpeedIncreaseClock.restart();
 }
