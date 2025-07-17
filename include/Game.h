@@ -42,7 +42,7 @@ void Run()
                 const auto* mouseEvent = event->getIf<sf::Event::MouseButtonPressed>();
                 if (mouseEvent->button == sf::Mouse::Button::Left)
                 {
-                    sf::Vector2f clickPos(static_cast<float>(mouseEvent->position.x), static_cast<float>(mouseEvent->position.y));
+                    sf::Vector2f clickPos = window.mapPixelToCoords(mouseEvent->position);
                     if (ui.GetRestartButtonBounds().contains(clickPos))
                     {
                         player.Reset();
