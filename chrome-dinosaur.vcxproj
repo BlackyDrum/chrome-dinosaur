@@ -139,6 +139,7 @@
   <ItemGroup>
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\Player.cpp" />
+    <ClCompile Include="src\SoundManager.cpp" />
     <ClCompile Include="src\UI.cpp" />
     <ClCompile Include="src\World.cpp" />
   </ItemGroup>
@@ -146,6 +147,7 @@
     <ClInclude Include="include\Game.h" />
     <ClInclude Include="include\Globals.h" />
     <ClInclude Include="include\Player.h" />
+    <ClInclude Include="include\SoundManager.h" />
     <ClInclude Include="include\UI.h" />
     <ClInclude Include="include\World.h" />
   </ItemGroup>

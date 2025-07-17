@@ -35,14 +35,18 @@ void Player::Update(sf::Time deltaTime)
     }
 }
 
-void Player::Jump()
+bool Player::Jump()
 {
     float maxY = m_GroundY - m_Sprite.getGlobalBounds().size.y;
     if (m_Sprite.getPosition().y >= maxY - 1.0f)
     {
         m_Sprite.setTextureRect(m_RunFrames[0]);
         m_VelocityY = m_JumpStrength;
+
+        return true;
     }
+
+    return false;
 }
 
 void Player::Duck()

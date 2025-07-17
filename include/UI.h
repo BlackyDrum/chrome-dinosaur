@@ -18,6 +18,8 @@ public:
     void SetGameOver(bool isGameOver);
 
     sf::FloatRect GetRestartButtonBounds() const { return m_RestartButton.getGlobalBounds(); }
+
+    uint32_t GetScore() const { return m_Score; }
 private:
     sf::Font m_Font;
     sf::Text m_ScoreText;

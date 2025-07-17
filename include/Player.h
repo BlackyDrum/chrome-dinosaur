@@ -11,7 +11,7 @@ public:
     Player();
 
     void Update(sf::Time deltaTime);
-    void Jump();
+    bool Jump();
     void Duck();
     void Unduck();
     void Death();

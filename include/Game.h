@@ -5,6 +5,7 @@
 #include "Player.h"
 #include "World.h"
 #include "UI.h"
+#include "SoundManager.h"
 #include "Globals.h"
 
 inline sf::FloatRect InflateRect(const sf::FloatRect& rect, float dx, float dy)
@@ -20,8 +21,10 @@ void Run()
     Player player;
     World world;
     UI ui;
+    SoundManager soundManager;
 
     bool isGameOver = false;
+    bool checkpointPlayed = false;
 
     sf::Clock clock;
 
@@ -66,11 +69,18 @@ void Run()
         if (!isGameOver)
         {
             if (isJumpKeyPressed())
-                player.Jump();
+            {
+                if (player.Jump())
+                    soundManager.PlayJumpSound();
+            }
             else if (isDuckKeyPressed())
+            {
                 player.Duck();
+            }
             else
+            {
                 player.Unduck();
+            }
 
             player.Update(deltaTime);
             world.Update(deltaTime);
@@ -87,13 +97,23 @@ void Run()
                 {
                     player.Death();
                     ui.SetGameOver(true);
+                    soundManager.PlayDieSound();
                     isGameOver = true;
                     break;
                 }
             }
+
+            uint32_t score = ui.GetScore();
+            if (score % 100 == 0 && score > 0 && !checkpointPlayed)
+            {
+                soundManager.PlayScoreSound();
+                checkpointPlayed = true;
+            }
+            else if (score % 100 != 0)
+            {
+                checkpointPlayed = false;
+            }
         }
-
-
 
         window.clear(sf::Color::White);
 
