@@ -2,23 +2,20 @@
 
 This is a C++ clone of the classic Chrome Dinosaur Game, built using [SFML 3](https://www.sfml-dev.org/).
 
+![gif](https://github.com/user-attachments/assets/267ddebc-1540-4968-9c57-445b8f08df4a)
+
 ---
 
-![gif](https://github.com/user-attachments/assets/267ddebc-1540-4968-9c57-445b8f08df4a)
+## 📦 Prebuilt Binaries
+
+If you're on **Windows**, you can skip building and download the latest `.exe` from the **[Releases page](https://github.com/BlackyDrum/chrome-dinosaur/releases)**.
+
 
 ## 🛠️ Requirements
 
 - C++20 compatible compiler (GCC, Clang, MSVC)
 - [CMake ≥ 3.20](https://cmake.org/download/)
 
----
-
-
-## 📦 Prebuilt Binaries
-
-If you're on **Windows**, you can skip building and download the latest `.exe` from the **[Releases page](https://github.com/BlackyDrum/chrome-dinosaur/releases)**.
-
----
 
 ## 🖥️ Building the Game
 
