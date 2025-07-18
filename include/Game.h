@@ -16,7 +16,6 @@ inline sf::FloatRect InflateRect(const sf::FloatRect& rect, float dx, float dy)
 void Run()
 {
     sf::RenderWindow window(sf::VideoMode({ SCREEN_WIDTH, SCREEN_HEIGHT }), "Chrome Dinosaur Game");
-    window.setFramerateLimit(FRAME_RATE);
 
     Player player;
     World world;
