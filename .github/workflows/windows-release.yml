@@ -1,0 +1,37 @@
+name: Windows Release Build
+
+on:
+  release:
+    types: [created]
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Install CMake
+      uses: jwlawson/actions-setup-cmake@v1
+
+    - name: Configure CMake
+      run: cmake -B build -S . -DCMAKE_BUILD_TYPE=Release
+
+    - name: Build project
+      run: cmake --build build --config Release
+
+    - name: Package release
+      run: |
+        mkdir release
+        copy build\Release\Chrome-Dinosaur.exe release\
+        xcopy assets release\assets\ /E /I /Y
+        xcopy data release\data\ /E /I /Y
+        powershell Compress-Archive -Path release\* -DestinationPath Chrome-Dinosaur.zip
+
+    - name: Upload to GitHub Release
+      uses: softprops/action-gh-release@v1
+      with:
+        files: Chrome-Dinosaur.zip
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
