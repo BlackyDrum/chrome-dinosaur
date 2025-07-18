@@ -56,7 +56,6 @@ void Player::Duck()
     m_IsDucking = true;
     m_CurrentFrame = 0;
 
-    sf::FloatRect bounds = m_Sprite.getGlobalBounds();
     m_Sprite.setTextureRect(m_DuckFrames[m_CurrentFrame]);
     
     float newHeight = m_Sprite.getGlobalBounds().size.y;
