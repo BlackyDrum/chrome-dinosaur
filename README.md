@@ -13,6 +13,13 @@ This is a C++ clone of the classic Chrome Dinosaur Game, built using [SFML 3](ht
 
 ---
 
+
+## 📦 Prebuilt Binaries
+
+If you're on **Windows**, you can skip building and download the latest `.exe` from the **[Releases page](https://github.com/BlackyDrum/chrome-dinosaur/releases)**.
+
+---
+
 ## 🖥️ Building the Game
 
 ### Windows (Visual Studio)
