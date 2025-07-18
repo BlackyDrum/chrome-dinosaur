@@ -10,6 +10,7 @@ UI::UI()
         std::cerr << "Failed to load sprite sheet!\n";
 
     sf::Color gray(100, 100, 100);
+    sf::Color lightGray(150, 150, 150);
 
     sf::FloatRect scoreBounds = m_ScoreText.getLocalBounds();
     m_ScoreText.setOrigin(sf::Vector2f(scoreBounds.position.x + scoreBounds.size.x, 0.f));
@@ -20,7 +21,7 @@ UI::UI()
     float spacing = 20.f; // Spacing between score and high score
     m_HighScoreText.setOrigin(sf::Vector2f(highScoreBounds.position.x + highScoreBounds.size.x, 0.f));
     m_HighScoreText.setPosition(sf::Vector2f(SCREEN_WIDTH - 10.f - scoreBounds.size.x - spacing, 10.f));
-    m_HighScoreText.setFillColor(gray);
+    m_HighScoreText.setFillColor(lightGray);
 
     std::ifstream highScoreFile(m_HighScoreFile);
     if (highScoreFile.is_open())
