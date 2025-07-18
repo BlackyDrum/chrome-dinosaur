@@ -67,7 +67,7 @@ void World::Update(sf::Time deltaTime)
         SpawnObstacle();
 
         // Set random spawn interval
-        std::uniform_real_distribution<float> dist(1.f, 4.f);
+        std::uniform_real_distribution<float> dist(0.5f, 2.5f);
         m_ObstacleSpawnInterval = sf::seconds(dist(m_RandomEngine));
 
         m_ObstacleSpawnClock.restart();
